@@ -2,12 +2,14 @@
 
 const express = require('express');
 const logger = require('./logger');
+const bodyParser = require('body-parser');
 
 require('dotenv').config();
 
 const argv = require('./argv');
 const port = require('./port');
 const setup = require('./middlewares/frontendMiddleware');
+const { router } = require('./router');
 const isDev = process.env.NODE_ENV !== 'production';
 const ngrok =
   (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel
@@ -15,6 +17,13 @@ const ngrok =
     : false;
 const { resolve } = require('path');
 const app = express();
+
+// encoding of the request/ response
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// use router for internal calls
+app.use('/api', router);
 
 // start connection with a database
 require('../db');
