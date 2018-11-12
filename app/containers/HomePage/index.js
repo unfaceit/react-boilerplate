@@ -20,6 +20,7 @@ import messages from './messages';
 import { makeSelectRecords } from '../App/selectors';
 import { makeSelectUserInput } from './selectors';
 import reducer from './reducer';
+import { changeInput } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
@@ -38,7 +39,11 @@ export class HomePage extends React.PureComponent {
         <form>
           <label>
             Please enter whatever you want to save:
-            <input type="text" className="userInput" />
+            <input
+              type="text"
+              className="userInput"
+              onChange={this.props.handleUserInput}
+            />
           </label>
           <input value="submit" type="submit" />
         </form>
@@ -55,8 +60,17 @@ const mapStateToProps = createStructuredSelector({
   records: makeSelectRecords(),
   userInput: makeSelectUserInput(),
 });
+const mapDispatchToProps = dispatch => ({
+  handleUserInput(e) {
+    // e.preventDefault();
+    dispatch(changeInput(e.target.value));
+  },
+});
 
-const withConnect = connect(mapStateToProps);
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
 const withReducer = injectReducer({ key: 'homePage', reducer });
 
 export default compose(

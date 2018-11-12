@@ -2,7 +2,7 @@ import { fromJS } from 'immutable';
 import { CHANGE_USER_INPUT } from './constants';
 
 export const initialState = fromJS({
-  userInput: 'message',
+  userInput: '',
 });
 
 const homeReducer = (state = initialState, action) => {
