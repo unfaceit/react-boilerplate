@@ -3,6 +3,8 @@
 const express = require('express');
 const logger = require('./logger');
 
+require('dotenv').config();
+
 const argv = require('./argv');
 const port = require('./port');
 const setup = require('./middlewares/frontendMiddleware');
@@ -13,6 +15,9 @@ const ngrok =
     : false;
 const { resolve } = require('path');
 const app = express();
+
+// start connection with a database
+require('../db');
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 // app.use('/api', myApi);

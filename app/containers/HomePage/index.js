@@ -30,13 +30,22 @@ export class HomePage extends React.PureComponent {
     // this.props.fetchAllStrings();
   }
 
+  // handleSaveString(e) {
+  //   e.preventDefault();
+  //   console.log('This is input: ', this.props);
+  // }
+
+  componentWillReceiveProps() {
+    console.log('we recieved props but usinfg redux');
+  }
+
   render() {
     return (
       <div>
         <h1>
           <FormattedMessage {...messages.header} />
         </h1>
-        <form>
+        <form onSubmit={e => this.handleSaveString(e)}>
           <label>
             Please enter whatever you want to save:
             <input
@@ -48,6 +57,7 @@ export class HomePage extends React.PureComponent {
           <input value="submit" type="submit" />
         </form>
         {/* run map on repositories to print them in */}
+        <h3>{this.props.userInput}</h3>
         {this.props.records.map(item => (
           <h4>{item}</h4>
         ))}
@@ -60,10 +70,13 @@ const mapStateToProps = createStructuredSelector({
   records: makeSelectRecords(),
   userInput: makeSelectUserInput(),
 });
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   handleUserInput(e) {
-    // e.preventDefault();
     dispatch(changeInput(e.target.value));
+  },
+  handleSaveString(e) {
+    e.preventDefault();
+    console.log('This is input: ', this.props);
   },
 });
 
