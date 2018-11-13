@@ -15,6 +15,7 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import injectReducer from 'utils/injectReducer';
 import { compose } from 'redux';
+import axios from 'axios';
 import messages from './messages';
 
 import { makeSelectRecords } from '../App/selectors';
@@ -30,13 +31,19 @@ export class HomePage extends React.PureComponent {
     // this.props.fetchAllStrings();
   }
 
-  // handleSaveString(e) {
-  //   e.preventDefault();
-  //   console.log('This is input: ', this.props);
-  // }
+  handleSaveString(e) {
+    e.preventDefault();
+    // console.log('This is input: ', this.props);
+    axios
+      .post('/api/submitPost', {
+        text: this.props.userInput,
+      })
+      .then(() => {})
+      .catch(err => console.error(err));
+  }
 
   componentWillReceiveProps() {
-    console.log('we recieved props but usinfg redux');
+    // console.log('we recieved props but usinfg redux');
   }
 
   render() {
