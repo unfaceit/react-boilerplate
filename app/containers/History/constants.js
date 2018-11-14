@@ -1,7 +1,5 @@
 /*
- *
  * History constants
- *
  */
 
-export const DEFAULT_ACTION = 'app/History/DEFAULT_ACTION';
+export const LOAD_RECORDS = 'DouveMI/History/LOAD_RECORDS';

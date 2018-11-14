@@ -5,13 +5,12 @@
  */
 
 import React from 'react';
+import { Styles } from './buttonUI';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
-function Button() {
-  return <div />;
-}
+const Button = props => <Styles>{props.value}</Styles>;
 
-Button.propTypes = {};
+// Button.propTypes = {};
 
 export default Button;

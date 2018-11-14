@@ -4,7 +4,7 @@ import { LOAD_RECORDS } from './constants';
 const initialState = fromJS({
   loading: false,
   error: false,
-  records: ['this', 'is', 'a', 'test'],
+  records: [],
 });
 
 const appReducer = (state = initialState, action) => {

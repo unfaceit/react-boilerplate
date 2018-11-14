@@ -5,19 +5,19 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION } from './constants';
+import { LOAD_RECORDS } from './constants';
 
 export const initialState = fromJS({
-  records: ['moving', 'things', 'to', 'history'],
+  records: ['1', '2', '3'],
 });
 
-function historyReducer(state = initialState, action) {
+const historyReducer = (state = initialState, action) => {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case LOAD_RECORDS:
+      return state.set('records', action.payload);
     default:
       return state;
   }
-}
+};
 
 export default historyReducer;

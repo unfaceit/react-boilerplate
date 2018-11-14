@@ -17,12 +17,15 @@ import { connect } from 'react-redux';
 import injectReducer from 'utils/injectReducer';
 import { compose } from 'redux';
 import axios from 'axios';
-import messages from './messages';
+import Button from '../../components/Button';
 
 import { makeSelectRecords } from '../App/selectors';
 import { makeSelectUserInput } from './selectors';
 import reducer from './reducer';
 import { changeInput } from './actions';
+import { PageWrapper, Form, Label, TextArea } from './homePageUI';
+
+import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
@@ -34,7 +37,6 @@ export class HomePage extends React.PureComponent {
 
   handleSaveString(e) {
     e.preventDefault();
-    // console.log('This is input: ', this.props);
     axios
       .post('/api/submitPost', {
         text: this.props.userInput,
@@ -45,29 +47,27 @@ export class HomePage extends React.PureComponent {
 
   render() {
     return (
-      <div>
-        <h1>
+      <PageWrapper>
+        <h2>
           <FormattedMessage {...messages.header} />
-        </h1>
-        <form onSubmit={e => this.handleSaveString(e)}>
-          <label>
-            Please enter whatever you want to save:
-            <input
-              value={this.props.userInput}
-              type="text"
-              className="userInput"
-              onChange={this.props.handleUserInput}
-            />
-          </label>
-          <input value="submit" type="submit" />
-        </form>
+        </h2>
+        <Form onSubmit={e => this.handleSaveString(e)}>
+          <Label>Please enter whatever you want to save:</Label>
+          <TextArea
+            value={this.props.userInput}
+            type="text"
+            className="userInput"
+            onChange={this.props.handleUserInput}
+          />
+          <Button value="Submit">
+            <input type="submit" />
+          </Button>
+        </Form>
+        {/* <Button value="Browse Entries"> */}
+        {/* Wrapping link in Button tag did not work as eslint self-close the tag. eslint-ignore did not help. Adjusted global <a> tag. */}
         <Link to="/history">Browse Entries</Link>
-        {/* run map on repositories to print them in */}
-        <h3>{this.props.userInput}</h3>
-        {this.props.records.map(item => (
-          <h4>{item}</h4>
-        ))}
-      </div>
+        {/* </Button> */}
+      </PageWrapper>
     );
   }
 }

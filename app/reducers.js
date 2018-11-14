@@ -9,6 +9,7 @@ import history from 'utils/history';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import globalReducer from './containers/App/reducer';
 import homeReducer from './containers/HomePage/reducer';
+import historyReducer from './containers/History/reducer';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -17,6 +18,7 @@ export default function createReducer(injectedReducers = {}) {
   const rootReducer = combineReducers({
     global: globalReducer,
     homePage: homeReducer,
+    history: historyReducer,
     language: languageProviderReducer,
     ...injectedReducers,
   });

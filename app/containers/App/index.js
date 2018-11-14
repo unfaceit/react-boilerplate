@@ -13,7 +13,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import History from 'containers/History/Loadable';
-import { PageWrapper } from './AppUI';
+import { PageWrapper, Logo } from './AppUI';
 
 import GlobalStyle from '../../global-styles';
 
@@ -21,7 +21,7 @@ export default function App() {
   return (
     <PageWrapper>
       {/* insert a logo/ name of an app */}
-      <h1>String Collector</h1>
+      <Logo>String Collector</Logo>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/history" component={History} />

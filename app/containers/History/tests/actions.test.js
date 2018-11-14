@@ -1,13 +1,18 @@
-import { defaultAction } from '../actions';
-import { DEFAULT_ACTION } from '../constants';
+import { fetchAll } from '../actions';
+import { LOAD_RECORDS } from '../constants';
 
 describe('History actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+  describe('Function fetchAll', () => {
+    it('should return type LOAD_RECORDS', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: LOAD_RECORDS,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(fetchAll()).toEqual(expected);
+    });
+  });
+  describe('Records retrieved', () => {
+    it('should return an array', () => {
+      expect(Array.isArray(fetchAll()).toBe(true));
     });
   });
 });

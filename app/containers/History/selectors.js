@@ -16,7 +16,9 @@ const selectHistoryDomain = state => state.get('history', initialState);
  */
 
 const makeSelectHistory = () =>
-  createSelector(selectHistoryDomain, substate => substate.toJS());
+  createSelector(selectHistoryDomain, historyState =>
+    historyState.get('records'),
+  );
 
 export default makeSelectHistory;
 export { selectHistoryDomain };

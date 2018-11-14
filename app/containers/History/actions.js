@@ -1,13 +1,10 @@
 /*
- *
  * History actions
- *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import { LOAD_RECORDS } from './constants';
 
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
+export const fetchAll = payload => ({
+  type: LOAD_RECORDS,
+  payload,
+});
