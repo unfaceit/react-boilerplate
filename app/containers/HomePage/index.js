@@ -10,6 +10,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
@@ -26,7 +27,7 @@ import { changeInput } from './actions';
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
   componentDidMount() {
-    console.log('did we get props?', this.props);
+    // console.log('did we get props?', this.props);
     // make a call to api to retrieve all entries
     // this.props.fetchAllStrings();
   }
@@ -38,12 +39,8 @@ export class HomePage extends React.PureComponent {
       .post('/api/submitPost', {
         text: this.props.userInput,
       })
-      .then(() => {})
+      .then(() => this.props.clearInput())
       .catch(err => console.error(err));
-  }
-
-  componentWillReceiveProps() {
-    // console.log('we recieved props but usinfg redux');
   }
 
   render() {
@@ -56,6 +53,7 @@ export class HomePage extends React.PureComponent {
           <label>
             Please enter whatever you want to save:
             <input
+              value={this.props.userInput}
               type="text"
               className="userInput"
               onChange={this.props.handleUserInput}
@@ -63,6 +61,7 @@ export class HomePage extends React.PureComponent {
           </label>
           <input value="submit" type="submit" />
         </form>
+        <Link to="/history">Browse Entries</Link>
         {/* run map on repositories to print them in */}
         <h3>{this.props.userInput}</h3>
         {this.props.records.map(item => (
@@ -72,19 +71,23 @@ export class HomePage extends React.PureComponent {
     );
   }
 }
+export const mapDispatchToProps = dispatch => ({
+  handleUserInput(event) {
+    // e.preventDefault();
+    dispatch(changeInput(event.target.value));
+  },
+  clearInput() {
+    dispatch(changeInput(''));
+  },
+  // handleSaveString(e) {
+  //   e.preventDefault();
+  //   console.log('This is input: ', this.props);
+  // },
+});
 
 const mapStateToProps = createStructuredSelector({
   records: makeSelectRecords(),
   userInput: makeSelectUserInput(),
-});
-export const mapDispatchToProps = dispatch => ({
-  handleUserInput(e) {
-    dispatch(changeInput(e.target.value));
-  },
-  handleSaveString(e) {
-    e.preventDefault();
-    console.log('This is input: ', this.props);
-  },
 });
 
 const withConnect = connect(
@@ -94,6 +97,6 @@ const withConnect = connect(
 const withReducer = injectReducer({ key: 'homePage', reducer });
 
 export default compose(
-  withConnect,
   withReducer,
+  withConnect,
 )(HomePage);

@@ -13,12 +13,13 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import History from 'containers/History/Loadable';
+import { PageWrapper } from './AppUI';
 
 import GlobalStyle from '../../global-styles';
 
 export default function App() {
   return (
-    <div>
+    <PageWrapper>
       {/* insert a logo/ name of an app */}
       <h1>String Collector</h1>
       <Switch>
@@ -27,6 +28,6 @@ export default function App() {
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />
-    </div>
+    </PageWrapper>
   );
 }
